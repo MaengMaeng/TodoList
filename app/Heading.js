@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native'
 const Heading = () => (
     <View style={styles.header}>
         <Text style={styles.headerText}>
-            todos
+            Todos
         </Text>
     </View>
 )

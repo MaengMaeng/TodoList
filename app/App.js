@@ -17,6 +17,8 @@ class App extends React.Component {
     }
 
     this.submitTodo = this.submitTodo.bind(this)
+    this.toggleComplete = this.toggleComplete.bind(this)
+    this.deleteTodo = this.deleteTodo.bind(this)
   }
 
   inputChange(inputValue) {
@@ -43,6 +45,23 @@ class App extends React.Component {
     this.setState({todos, inputValue:''})
   }
 
+  deleteTodo(todoIndex) {
+    let {todos} = this.state
+    todos = todos.filter((todo) => todo.todoIndex !== todoIndex)
+    this.setState({todos})
+  }
+
+  toggleComplete (todoIndex) {
+    let {todos} = this.state
+    todos.forEach((todo) => {
+      if(todo.todoIndex === todoIndex) {
+        todo.complete = !todo.complete
+      }
+    })
+
+    this.setState({todos})
+  }
+
   render() {
     const {inputValue, todos} = this.state
 
@@ -54,7 +73,10 @@ class App extends React.Component {
           <Input
             inputValue={inputValue}
             inputChange={(text) => this.inputChange(text)}/>
-          <TodoList todos={todos}/>
+          <TodoList 
+            todos={todos}
+            toggleComplete={this.toggleComplete}
+            deleteTodo={this.deleteTodo}/>
           <Button
             submitTodo={this.submitTodo}/>
         </ScrollView>
